@@ -9,7 +9,7 @@
       {
         "src": "/(.*)",
         "dest": "Index.js"
-      }
+      },
       { "src": "/api/(.*)", "dest": "index.js" }
    
     ]
