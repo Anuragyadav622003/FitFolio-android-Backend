@@ -6,4 +6,4 @@
       { "src": "/(.*)", "dest": "Index.js" }
     ]
   }
-git   
+  
