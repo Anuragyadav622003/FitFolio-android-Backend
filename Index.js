@@ -40,7 +40,9 @@ app.use(express.static('public'));
 
 const Port = process.env.PORT || 3000;
 
-
+app.get("/api",(req,res)=>{ 
+  res.send("hello");
+})
 app.post("/api/waterIntake", verifyToken,waterIntakeController.createWaterIntake);
 app.get("/api/waterIntake", verifyToken,waterIntakeController.getWaterIntakeByUser);
 
