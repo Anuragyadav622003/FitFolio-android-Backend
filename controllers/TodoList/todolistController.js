@@ -40,11 +40,11 @@ exports.getTodos = async(req,res)=>{
       }
 };
 
-exports.deleteTodoList = async()=>{
+exports.deleteTodoList = async(req,res)=>{
   try {
     // Find the task by ID and delete it
-    console.log(req.body.id)
-    const deletedTask = await todos.deleteMany({ _id: req.body.id, userId: req.user });
+  
+    const deletedTask = await todos.deleteOne({ _id: req.body.id, userId: req.user });
     if (!deletedTask) {
       return res.status(404).json({ error: 'Task not found' });
     }
