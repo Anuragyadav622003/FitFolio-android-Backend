@@ -13,9 +13,10 @@ exports.createUserDetails = async (req, res) => {
 
 // Get all users
 exports.getAllUserDetails = async (req, res) => {
-  try {
-    const users = await user.find();
-    res.status(200).json(users);
+  try {  const user_id = req.user;
+    const userDetail = await user.find({_id:user_id});
+    console.log(userDetail,"userDetails")
+    res.status(200).json(userDetail);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
