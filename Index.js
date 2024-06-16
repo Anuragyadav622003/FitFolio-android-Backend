@@ -56,6 +56,8 @@ app.post("/api/userProfile",verifyToken,userProfile.createProfile);
 app.get('/api/userProfile',verifyToken,userProfile.getProfile);
 app.get('/api/getUserId',verifyToken,(req,res)=>{ res.status(201).json(req.user)});
 app.post('/api/userDetails',verifyToken,userDetailsController.createUserDetails);
+app.get('/api/userDetails',verifyToken,userDetailsController.getAllUserDetails);
+
 app.get('/api/leaderbord',verifyToken,leaderBoard.createLeaderBoard);
 
 
