@@ -6,7 +6,10 @@ const leaderBoard = require('../../modals/leaderboard/leaderBoard');
 const getTodayDate = () => {
   const today = new Date();
   today.setHours(5,30, 0, 0);
-  return today;
+ 
+  const datePart = today.toISOString().split('T')[0];
+
+  return datePart;
 };
 // Controller methods for Water Intake Tracker
 exports.createWaterIntake = async (req, res) => {

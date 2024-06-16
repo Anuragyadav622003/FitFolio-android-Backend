@@ -18,6 +18,7 @@ const routine = require('./controllers/RoutineController/RoutineController');
 const feedbackController = require('./controllers/Feedback/FeedBackController');
 const cartController = require('./controllers/CartController/CartController');
 const storeProductController = require('./controllers/StoreProduct/storeProductController');
+const caloriesBurnedToday = require('./controllers/trackerController/caloriesBurn')
 const userAuth = require('./controllers/UserAuthentication/userAuth');
 const verifyToken = require('./midleware/verifyToken');
 const SecreteKey = process.env.SECRATE_KEY;
@@ -48,6 +49,8 @@ app.get("/api/waterIntake", verifyToken,waterIntakeController.getWaterIntakeByUs
 
 app.post("/api/workout", verifyToken,workoutTrackerController.createWorkout);
 app.get("/api/workout", verifyToken,workoutTrackerController.getWorkoutByUser);
+app.get('/api/getCaloriesBurnedToday',verifyToken,caloriesBurnedToday.totalCaloriesBurnToday);
+
 
 app.post("/api/userProfile",verifyToken,userProfile.createProfile);
 app.get('/api/userProfile',verifyToken,userProfile.getProfile);
