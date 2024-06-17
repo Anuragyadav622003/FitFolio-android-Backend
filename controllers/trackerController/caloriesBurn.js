@@ -11,10 +11,14 @@ const getTodayDate = () => {
 exports.totalCaloriesBurnToday = async(req,res)=>{ 
       try { const today = getTodayDate();
       
-     console.log(today,"today")
+  
      
             const response = await WorkoutTracker.findOne({userId:req.user,date:today});
-            console.log(response);
+      
+           if(!response)
+            {
+              res.status(201).json(0);
+            }
             const TotalCalories = response.running.caloriesBurned+response.walking.caloriesBurned+response.bicycling.caloriesBurned+response.swimming.caloriesBurned;
           
             res.status(201).json(TotalCalories);
