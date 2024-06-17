@@ -3,8 +3,6 @@ const schedule = require('node-schedule');
 require('dotenv').config();
 const admin = require('firebase-admin');
 const cors = require('cors');
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 
@@ -85,60 +83,7 @@ app.delete('/api/todos', verifyToken,todoListController.deleteTodoList);
 
 app.post('/api/login', userAuth.LoginUser);
 
-function generateToken(user) {
-  const payload = {
-    ...user,
-  }
-  return jwt.sign(payload, SecreteKey);
-}
-
-app.post('/api/register', async (req, res) => {
-  try {
-    // Generate salt
-    bcrypt.genSalt(10, async (err, salt) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error generating salt' });
-      }
-
-      // Hash the password
-      bcrypt.hash(req.body.password, salt, async (err, hash) => {
-        if (err) {
-          return res.status(500).json({ error: 'Error hashing password' });
-        }
-
-        // Create user data
-        const userData = {
-          name: req.body.name,
-          email: req.body.email,
-          password: hash,
-          deviceTokens: [req.body.deviceToken]
-        };
-
-        // Check if user exists
-        const existingUser = await user.findOne({ email: userData.email });
-        if (!existingUser) {
-          const resp = await user.create(userData);
-
-          const token = generateToken({ userId: resp._id });
-          res.status(201).json({ token, userId: resp._id });
-        } else {
-          const passwordMatch = await bcrypt.compare(req.body.password, existingUser.password);
-          if (!passwordMatch) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-          }
-
-          // Generate JWT token
-          const token = generateToken({ userId: existingUser._id });
-
-          res.status(201).json({ token, userId: existingUser._id });
-        }
-      });
-    });
-  } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+app.post('/api/register',userAuth.RegisterUser)
 
 
 
