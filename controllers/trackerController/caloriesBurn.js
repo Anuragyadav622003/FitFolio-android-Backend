@@ -1,4 +1,4 @@
-const { response } = require('express');
+
 const WorkoutTracker = require('../../modals/Tracker/workoutTracker');
 const getTodayDate = () => {
     const today = new Date();

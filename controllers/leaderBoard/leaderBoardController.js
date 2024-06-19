@@ -1,4 +1,4 @@
-const leaderBoard = require('../../modals/leaderboard/leaderBoard');
+const leaderBoard  = require('../../modals/leaderboard/leaderBoard')
 
 exports.createLeaderBoard =async (req,res)=>{
 try {   console.log('leaderboard');
@@ -8,5 +8,6 @@ const userId = req.user;
     res.status(200).json({response,userId});
 } catch (error) {
    console.log('error in createLeaderboard',error) ;
+   res.status(400);
 }
 };
